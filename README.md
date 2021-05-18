@@ -1,5 +1,5 @@
 # C-HTTP-server
 building an HTTP server on TCP from scratch
 
-# Libraries
+## Libraries
 This project will not make use of any libraries to learn the fundamentals of creating an HTTP server
