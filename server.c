@@ -1,5 +1,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <stdio.h>
+#include <string.h>
 
 int main(){
 
@@ -11,7 +13,21 @@ int main(){
         perror("Socket creation failed");
         return 0;
     }
-    fprintf("Socket Created!");
+    fprintf(stdout, "Socket Created!");
+
+
+    memset((char *) &sockAddr, 0, sizeof(sockAddr));
+    sockAddr.sin_family = AF_INET;
+    sockAddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    sockAddr.sin_port= htons(PORT);
+
+    int bindVal = bind(server_fd, (struct sockaddr *)&sockAddr, sizeof(sockAddr));
+
+    if(bindVal < 0){
+        perror("Socket Binding failed");
+        return 0;
+    }
+    fprintf(stdout, "\n\nSocket Binded!\n");
 
     
 
