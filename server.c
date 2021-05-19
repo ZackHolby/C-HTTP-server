@@ -2,7 +2,7 @@
 #include <netinet/in.h>
 #include <stdio.h>
 #include <string.h>
-
+#include <unistd.h>
 int main(){
 
     struct sockaddr_in sockAddr;
@@ -22,7 +22,7 @@ int main(){
     sockAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     sockAddr.sin_port= htons(PORT);
 
-    memset(sockAddr.sin_zero, "\0", sizeof(sockAddr.sin_zero));
+    memset(sockAddr.sin_zero, 0, sizeof(sockAddr.sin_zero));
 
     int bindVal = bind(server_fd, (struct sockaddr *)&sockAddr, sizeof(sockAddr));
 
@@ -43,7 +43,8 @@ int main(){
 
     while(1){
         fprintf(stdout, "\n---------Waiting for connection----------\n");
-        int new_socket = accept(server_fd, (struct sockaddr *)&sockAddr, (socklen_t*)&addrlen)
+        int size = sizeof(sockAddr);
+        int new_socket = accept(server_fd, (struct sockaddr *)&sockAddr, (socklen_t*)&size);
         if(new_socket < 0){
             perror("Socket Accept failed");
             return 0;
