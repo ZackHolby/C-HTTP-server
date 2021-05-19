@@ -47,5 +47,19 @@ int main(){
 
 
 
+    char bufferMesg[1024] = {0};
+    int mesgIn = read(new_socket, bufferMesg, 1024);
+    fprintf(stdout, "\n\nMessage: +%s\n", bufferMesg);
+
+    if(mesgIn < 0){
+        fprintf(stdout, "No bytes read in");
+    }
+
+    char *str = "Hi from server";
+    write(new_socket, str, strlen(str));
+
+
+    close(new_socket);
+
 }
 
