@@ -31,6 +31,21 @@ int main(){
 
     
 
+    int listenVal = listen(server_fd, 3)
+
+    if(listenVal < 0){
+        perror("Socket Listening failed");
+        return 0;
+    }
+
+    int new_socket = accept(server_fd, (struct sockaddr *)&sockAddr, (socklen_t*)&addrlen)
+    if(new_socket < 0){
+        perror("Socket Accept failed");
+        return 0;
+    }
+    fprintf(stdout, "\n\nServer Listening...!\n");
+
+
 
 }
 
